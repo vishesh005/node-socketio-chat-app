@@ -4,16 +4,20 @@
  const app=express();
  const port=process.env.PORT || 3000;
  const path = require('path');
+ const {generateMessage} = require('./utils/message');
  var server=http.createServer(app);
  app.use(express.static(path.join(__dirname,'../public')));
  var io=socketIO(server);
  io.on('connection',(socket)=>{
   console.log('New User connected');
-  socket.emit('gotEmail',{
-    from:'Vishesh',
-    text:'Hey there how are you',
-    sendAt:123
-  });
+    var user='$'+new Date().getTime();
+    socket.emit('welcome',generateMessage('Admin','Welcome user '+user));
+    socket.broadcast.emit('joined',generateMessage('Admin','User '+user+'joined our chat app'));
+     socket.on('createMessage',(message,callback)=>{
+        console.log(message);
+        io.emit('newMessage',generateMessage(message.from,message.text));
+        callback('Hey i am server i got your ,message');
+     });
    socket.on('disconnect',()=>{
      console.log('Disconnected from client');
    });
