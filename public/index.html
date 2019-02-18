@@ -2,19 +2,33 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/styles.css"/>
     <title>Chat App</title>
 
   </head>
-  <body>
-    <p>Welcome to the VisheshChat App</p>
-    <ol id="messages"></ol>
-   <form id="message-form">
-    <input type="text" name="message" placeholder="Message">
-     <button>Submit</button>
-     <button id="send-geolocation"> Send Location</button>
+  <body class="chat">
+    <div class="chat__sidebar">
+    <h3>People</h3>
+    <div class="users">
+
+    </div>
+  </div>
+  <div class="chat__main">
+    <ol id="messages" class="chat__messages"></ol>
+    <div class="chat__footer">
+      <form id="message-form">
+       <input type="text" name="message" placeholder="Message",autofocus autocomplete="off">
+        <button>Submit</button>
+        <button id="send-geolocation"> Send Location</button>
+   </form>
+    </div>
+
+  </div>
+
      <script src="./js/libs/jquery-3.3.1.min.js"></script>
      <script src="socket.io/socket.io.js"></script>
+     <script type="text/javascript" src="./js/moment.js"></script>
      <script src="./js/index.js"></script>
-   </form>
+
   </body>
 </html>
