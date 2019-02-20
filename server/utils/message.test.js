@@ -14,7 +14,7 @@ describe('generateMessage',()=>{
 });
 
 describe('generate Location',()=>{
-  it('should generate corrent location',()=>{
+  it('should generate correct location',()=>{
           var latitude=110.12;
           var longitude=23.001;
           var from='Vishesh';

@@ -14,8 +14,17 @@
     }
   }
   var messageBox=jQuery('[name=message]');
-  socket.on('connect',function(){
-    console.log('Connected to server');
+   socket.on('connect',function(){
+     var params=jQuery.deparam(window.location.search);
+     socket.emit('join',params,function(err) {
+          if(err){
+           alert(err);
+           window.location.href='/';
+          }
+          else{
+
+          }
+     });
   });
   socket.on('disconnect',function(){
     console.log('Disconnected from server');
@@ -60,13 +69,13 @@
   socket.on('joined',function(message) {
     console.log(message);
   });
-  socket.emit('createMessage',{
-    from:'YoyoBuddy',
-    text:'Hey Server'
-  },
-  (response)=>{
-    console.log('Got it ',response);
-  });
+  // socket.emit('createMessage',{
+  //   from:'YoyoBuddy',
+  //   text:'Hey Server'
+  // },
+  // (response)=>{
+  //   console.log('Got it ',response);
+  // });
 
 jQuery('#message-form').on('submit',function(e) {
   e.preventDefault();

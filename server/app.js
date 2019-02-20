@@ -8,11 +8,21 @@
  var server=http.createServer(app);
  app.use(express.static(path.join(__dirname,'../public')));
  var io=socketIO(server);
+ const {isRealString} = require('./utils/validation');
+
  io.on('connection',(socket)=>{
   console.log('New User connected');
-    var user='$'+new Date().getTime();
-    socket.emit('welcome',generateMessage('Admin','Welcome user '+user));
-    socket.broadcast.emit('joined',generateMessage('Admin','User '+user+'joined our chat app'));
+
+     // join room
+      socket.on('join',(params,callback)=>{
+             if(! isRealString(params.name) && !isRealString(params.room))
+               callback('Name and room is required');
+               socket.join(params.room);
+               socket.emit('newMessage',generateMessage('Admin','Welcome user '+params.name));
+               socket.broadcast.to(params.room).emit('newMessage',generateMessage('Admin',params.name+' has joined'));
+               callback();
+      });
+    //-------//
      socket.on('createMessage',(message,callback)=>{
         console.log(message);
         io.emit('newMessage',generateMessage(message.from,message.text));
