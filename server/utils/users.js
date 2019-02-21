@@ -9,9 +9,9 @@ class Users{
   }
 
   removeUser(id){
-    var user= getUser(id);
+    var user= this.getUser(id);
     if(user){
-    this.users=this.users.filter((user)=> user.id !== id )[0];
+      this.users=this.users.filter((user)=> user.id !== id );
     }
   return user;
   }
@@ -22,7 +22,7 @@ class Users{
 
   getUserList(room){
     var users= this.users.filter((user) => user.room === room);
-    return names=users.map((user)=> user.name);
+    return users.map((user)=> user.name);
    }
 }
 module.exports = {Users};
